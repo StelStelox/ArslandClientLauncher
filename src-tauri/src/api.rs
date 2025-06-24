@@ -10,13 +10,11 @@ static HTTP_CLIENT: Lazy<Client> = Lazy::new(|| {
         .unwrap()
 });
 
-const BASE_URL: &str = dotenv!("BACKEND_URL");
-
 #[tauri::command]
 #[allow(non_snake_case)]
 pub async fn authentication(login: String, password: String) -> Result<ApiResponse<AuthenticationResponse>, String> {
     let res = HTTP_CLIENT
-        .post(format!("{}/api/v1/integrations/auth/signin", BASE_URL))
+        .post(format!("{}/api/v1/integrations/auth/signin", dotenv!("BACKEND_URL")))
         .json(&serde_json::json!({
             "login": login,
             "password": password
@@ -38,7 +36,7 @@ pub async fn authentication(login: String, password: String) -> Result<ApiRespon
 #[allow(non_snake_case)]
 pub async fn check_token(accessToken: String) -> Result<ApiResponse<AuthenticationResponse>, String> {
     let res = HTTP_CLIENT
-        .post(format!("{}/api/v1/integrations/auth/checkToken", BASE_URL))
+        .post(format!("{}/api/v1/integrations/auth/checkToken", dotenv!("BACKEND_URL")))
         .json(&serde_json::json!({
             "accessToken": accessToken
         }))
@@ -58,7 +56,7 @@ pub async fn check_token(accessToken: String) -> Result<ApiResponse<Authenticati
 #[allow(non_snake_case)]
 pub async fn get_clients(accessToken: String) -> Result<ApiResponse<GetClients>, String> {
     let res = HTTP_CLIENT
-        .get(format!("{}/api/v1/profiles", BASE_URL))
+        .get(format!("{}/api/v1/profiles", dotenv!("BACKEND_URL")))
         .bearer_auth(accessToken)
         .send()
         .await

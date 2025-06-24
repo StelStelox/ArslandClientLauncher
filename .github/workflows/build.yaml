@@ -15,7 +15,7 @@ jobs:
           #   args: '--target aarch64-apple-darwin'
           # - platform: 'macos-latest'
           #   args: '--target x86_64-apple-darwin'
-          - platform: 'ubuntu-22.04'
+          - platform: 'ubuntu-latest'
             args: ''
           # - platform: 'windows-latest'
           #   args: ''
@@ -25,11 +25,17 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install dependencies (Ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04'
+        if: startsWith(matrix.platform, 'ubuntu')
         run: |
           sudo apt-get update
+
+          # Удаляем потенциально проблемную версию
+          sudo apt-get remove -y libwebkit2gtk-4.1-dev || true
+
+          # Устанавливаем WebKitGTK 2.44.0-2 и фиксируем версию
           sudo apt-get install -y \
-            libwebkit2gtk-4.1-dev \
+            libwebkit2gtk-4.0-dev=2.44.0-2 \
+            libwebkit2gtk-4.0-37=2.44.0-2 \
             build-essential \
             curl \
             wget \
@@ -42,6 +48,8 @@ jobs:
             libwayland-dev \
             libegl1-mesa-dev \
             libgbm-dev
+
+          sudo apt-mark hold libwebkit2gtk-4.0-dev libwebkit2gtk-4.0-37
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -87,7 +95,7 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NO_STRIP: ${{ matrix.platform == 'ubuntu-22.04' && 'true' || '' }}
+          NO_STRIP: ${{ matrix.platform == 'ubuntu-latest' && 'true' || '' }}
         with:
           tagName: app-v__VERSION__
           releaseName: 'App v__VERSION__'
