@@ -1,0 +1,10 @@
+{
+    "authentication": {
+        "form": {
+            "login": "Логин",
+            "password": "Пароль",
+            "enter": "Войти",
+            "ref_register_account": "Нету аккаунта?"
+        }
+    }
+}

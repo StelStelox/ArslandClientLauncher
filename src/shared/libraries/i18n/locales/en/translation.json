@@ -1,0 +1,10 @@
+{
+    "authentication": {
+        "form": {
+            "login": "Login",
+            "password": "Password",
+            "enter": "Enter",
+            "ref_register_account": "Don't have an account?"
+        }
+    }
+}

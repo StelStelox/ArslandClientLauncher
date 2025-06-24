@@ -1,0 +1,97 @@
+.authenticationPages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.authenticationBlock {
+    height: 350px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: #3f3f3f;
+}
+
+.logo {
+    width: 100px;
+    pointer-events: none;
+    margin-bottom: 15px;
+}
+
+.authenticationForm {
+    display: flex;
+    padding: 15px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.authenticationForm input {
+    margin-bottom: 15px;
+    height: 40px;
+    width: 220px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 15px;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #0f0f0f98;
+    box-sizing: border-box;
+    transition: border-color 0.25s;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.authenticationForm a {
+    margin-top: 15px;
+}
+
+.autoAuthentication {
+    margin-top: 5px;
+}
+
+.autoAuthentication input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.autoAuthentication span {
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border-radius: 3px;
+    background-color: var(--primary-color-hover);
+}
+
+.autoAuthentication input[type=checkbox]:checked + span {
+    background-color: var(--primary-color);
+}
+
+.autoAuthentication span svg {
+    fill: none;
+}
+
+.autoAuthentication input[type=checkbox]:checked + span svg {
+    fill: #000000;
+}
+
+.enterButton {
+    font-size: 20px;
+    height: 40px;
+    width: 220px;
+    padding: 5px;
+    color: white;
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.enterButton:hover {
+    background: var(--primary-color-hover);
+}

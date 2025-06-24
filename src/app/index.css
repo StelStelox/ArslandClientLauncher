@@ -1,0 +1,39 @@
+body {
+  background-color: #0f0f0f98;
+  margin: 0;
+}
+
+:root {
+  --primary-color: rgb(50, 158, 163);
+  --primary-color-hover: rgb(5, 178, 187);
+  --background-color-default: rgba(128, 128, 128, 0.1);
+}
+
+* {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  transition-duration: .15s;
+  user-select: none;
+  color: #ffffff;
+}
+
+main {
+  height: calc(100vh - 40px);
+  margin-top: 40px;
+}
+
+
+button {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  color: #24c8db;
+}
