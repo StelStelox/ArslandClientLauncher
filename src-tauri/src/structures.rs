@@ -1,5 +1,14 @@
+use std::path::PathBuf;
 use serde::{Deserialize, Serialize};
 
+
+// TODO Возможно надо будет создать отдельный пакет и вынести все структуры в отдельный проект
+#[derive(Default)]
+#[allow(non_snake_case)]
+pub struct StorageData {
+    pub storage_dir: PathBuf,
+    pub accessToken: PathBuf,
+}
 
 // TODO надо глянуть какие должны быть строки приватные, а какие публичные
 #[derive(Serialize, Deserialize)]
@@ -28,7 +37,7 @@ pub struct AuthenticationResponse {
 
 #[derive(Serialize, Deserialize)]
 #[allow(non_snake_case)]
-pub struct Clients {
+pub struct GetClients {
     pub name: String,
     pub displayName: String,
     pub createDate: String,
@@ -55,5 +64,3 @@ pub struct Server {
     pub online: u32,
     pub maxOnline: u32
 }
-
-pub type GetClients = Vec<Clients>;

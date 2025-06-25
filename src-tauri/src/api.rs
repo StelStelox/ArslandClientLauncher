@@ -54,7 +54,7 @@ pub async fn check_token(accessToken: String) -> Result<ApiResponse<Authenticati
 
 #[tauri::command]
 #[allow(non_snake_case)]
-pub async fn get_clients(accessToken: String) -> Result<ApiResponse<GetClients>, String> {
+pub async fn get_clients(accessToken: String) -> Result<ApiResponse<Vec<GetClients>>, String> {
     let res = HTTP_CLIENT
         .get(format!("{}/api/v1/profiles", dotenv!("BACKEND_URL")))
         .bearer_auth(accessToken)
@@ -63,9 +63,15 @@ pub async fn get_clients(accessToken: String) -> Result<ApiResponse<GetClients>,
         .map_err(|e| e.to_string())?
         .error_for_status()
         .map_err(|e| e.to_string())?
-        .json::<ApiResponse<GetClients>>()
+        .json::<ApiResponse<Vec<GetClients>>>()
         .await
         .map_err(|e| e.to_string())?;
 
     Ok(res)
 }
+
+// #[tauri::command]
+// #[allow(non_snake_case)]
+// pub async fn get_clients_info(accessToken: String) -> Result<(), String> {
+//   Ok(())
+// }
