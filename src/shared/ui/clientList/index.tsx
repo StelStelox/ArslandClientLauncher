@@ -1,46 +1,44 @@
 import { invoke } from "@tauri-apps/api/core";
 import React from "react";
 import { useSelectServer } from "../../hooks/useSelectClient";
-import ServerSelect from "../serverSelect";
+import ClientSelect from "../clientSelect";
 import { useNavigate } from "react-router";
 import { store } from "../../libraries/storeUtilis";
 import "./index.css"
 
-function ServersList() {
+function ClientList() {
     const navigate = useNavigate();
-    const [servers, setServers] = React.useState<Server[]>([]);
+    const [client, setClient] = React.useState<GetClients[]>([]);
     const { setSelectServerState } = useSelectServer();
 
     React.useEffect(() => {
         const fetchServers = async () => {
-            const accessToken = await store.get<string>("accessToken");
-            if (!accessToken) return;
+            const access_token = await store.get("access_token");
+            if (!access_token) return;
             const response: ApiResponse<GetClients[]> = await invoke("get_clients", {
-                accessToken
+                accessToken: access_token
             });
-            const clients = response.data ?? [];
-            const allServers = clients.flatMap(client => client.servers ?? []);
-            setServers(allServers);
+            setClient(response.data || []);
         };
         fetchServers();
     }, []);
 
-    const selectServer = async (server: Server) => {
-        setSelectServerState([server]);
+    const selectClient = async (client: GetClients) => {
+        setSelectServerState([client]);
         navigate('/client-panel');
     };
 
     return (
         <div className="clientList-comaponent">
-            {servers.map((server, i) => (
-                <ServerSelect
+            {client.map((client, i) => (
+                <ClientSelect
                     key={i}
-                    server={server}
-                    onClick={() => selectServer(server)}
+                    client={client}
+                    onClick={() => selectClient(client)}
                 />
             ))}
         </div>
     );
 }
 
-export default ServersList;
+export default ClientList;

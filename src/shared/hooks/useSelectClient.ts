@@ -13,13 +13,23 @@ export function useSelectServer() {
 }
 
 function defaultServer() {
-    const server: Server[] = [
+    const server: GetClients[] = [
         {
             name: "",
-            version: "",
-            isOnline: false,
-            online: 0,
-            maxOnline: 0,
+            displayName: "",
+            createDate: "",
+            description: "",
+            gameVersion: "",
+            launchVersion: "",
+            iconBase64: "",
+            background: "",
+            isEnabled: false,
+            priority: 0,
+            jvmArguments: "",
+            gameArguments: "",
+            state: 0,
+            loader: 0,
+            servers: [] as Server[]
         }
     ]
     return server;

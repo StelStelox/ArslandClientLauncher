@@ -1,9 +1,9 @@
+use crate::structures::StorageData;
+use dotenvy_macro::dotenv;
 use std::sync::Mutex;
 use std::{env, fs};
-use dotenvy_macro::dotenv;
 use tauri::{App, Manager};
 use tauri_plugin_store::StoreExt;
-use crate::structures::StorageData;
 mod api;
 mod structures;
 
@@ -12,6 +12,7 @@ mod structures;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_store::Builder::new().build())
         // Debug window on npm run tauri dev
         .setup(|app| {
@@ -29,7 +30,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             api::authentication,
             api::check_token,
-            api::get_clients
+            api::get_clients,
+            api::get_client_info
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -44,7 +46,7 @@ fn default_store(app: &mut App) {
     let state = state.lock().unwrap();
     if store.is_empty() {
         store.set("dir", state.storage_dir.clone().to_str().unwrap());
-        store.set("accessToken", "");
+        store.set("access_token", "");
     }
 }
 
@@ -59,5 +61,5 @@ fn init_storage(app: &mut App) {
         .join(dotenv!("DERICTORY"))
         .to_owned();
     let _ = fs::create_dir_all(&state.storage_dir);
-    state.accessToken = state.storage_dir.clone().join("accessToken");
+    state.access_token = state.storage_dir.clone().join("access_token");
 }

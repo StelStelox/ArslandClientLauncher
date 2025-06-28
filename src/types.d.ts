@@ -22,7 +22,7 @@ interface GetClients {
     name: string;
     displayName: string;
     createDate: string;
-    escription: string;
+    description: string;
     gameVersion: string;
     launchVersion: string;
     iconBase64?: string;

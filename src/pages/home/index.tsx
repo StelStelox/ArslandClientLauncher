@@ -1,5 +1,5 @@
 import SkinViewer from "../../shared/libraries/skinViewer";
-import ServersList from "../../shared/ui/serversList";
+import ClientList from "../../shared/ui/clientList";
 import "./index.css"
 
 function Home() {
@@ -7,7 +7,7 @@ function Home() {
         <div className="homePages">
             <SkinViewer/>
             <div className="clientList">
-                <ServersList/>
+                <ClientList/>
             </div>
         </div>
     )
